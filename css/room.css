@@ -232,6 +232,45 @@
   background: rgba(201, 168, 76, 0.18);
 }
 
+/* Conteneur des liens de téléchargement (1 ou 2 boutons), posé en bas au centre
+   par-dessus le bas du poster ; passe à la ligne si la place manque */
+.proof-downloads {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  z-index: 330;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 92vw;
+}
+
+.proof-downloads.hidden {
+  display: none;
+}
+
+/* Bouton de téléchargement — même charte que le bouton CV (.btn-download) */
+.proof-download {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background: rgba(10, 22, 40, 0.88);
+  border: 1px solid var(--color-accent);
+  padding: 11px 26px;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.proof-download:hover {
+  background: rgba(201, 168, 76, 0.18);
+}
+
 /* ============================================================
    MODALS
    ============================================================ */

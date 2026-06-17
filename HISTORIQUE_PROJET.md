@@ -76,7 +76,18 @@ scrolle pas ») reste valable.
 - **Labels découplés des surfaces** : sortis du `clip-path` (éléments `.surface-label[data-label]` séparés, `z-index 6`, `pointer-events:none`) → jamais rognés, centrés via `translate(-50%,-50%)` sur les points exacts fournis (Évaluer 61.7/18.7, Décider 48.9/30.5, Analyser 13.0/76.2, Piloter 88.3/68.5, Produire 33.5/89.5).
 - `room.js` : survol surface **ou** cadre → `setCompetenceLabel(slug)` active le bon label.
 
+### Sauvegarde Version 1 + publication GitHub (7e passe, même jour)
+- **Blocage chemin long résolu :** dossier `AC34.01GC2F  Résoudre…charges et produ` (138 car., chemin total 309 > limite Windows 260, `LongPathsEnabled=0`) **renommé** en `AC34.01GC2F  Évaluation actifs-passifs` (chemin 209). Référence `data-poster` mise à jour dans `index.html` ; docs alignées.
+- **Fichiers d'hébergement ajoutés :** `.nojekyll` (désactive Jekyll sur Pages), `.gitignore` (ignore `.claude/`, fichiers OS/Office), `README.md` (présentation + lancement local + structure).
+- **Sauvegarde « Version 1 » :** copie complète du site dans un dossier frère `..\Sprint\Portfolio_v1` (57/57 fichiers, 10/10 posters, `.claude` exclu).
+- **Git :** Git for Windows 2.54 installé par Oscar. Dépôt initialisé (`git init -b main`, `core.longpaths true`). Identité : `Oscar Rousset <racsoloma@gmail.com>`. Commit initial **« Version 1 »** = `04d65c0` (57 fichiers).
+- **Publication GitHub :** remote `origin` = `https://github.com/Kloupi/Oscar.Rousset.Portfolio.git`, `git push -u origin main` **réussi**.
+- **GitHub Pages :** à activer côté Oscar (Settings → Pages → branche `main`, dossier `/root`). URL cible : **https://kloupi.github.io/Oscar.Rousset.Portfolio/**.
+
 ### Reste à trancher / à fournir par Oscar
+- **Activer GitHub Pages** (Settings → Pages) puis vérifier que le site répond.
+- **Vidéo de présentation** : remplacer le placeholder du modal vidéo (lien à fournir) → étape « vidéo » de `PROMPTS.md`.
+- ✅ **Nouveau CV fourni** : `assets/documents/CV_Oscar_Rousset_FR.pdf` (remplace `CV.pdf` ; références mises à jour dans `index.html`).
 - **Interprétations manquantes** pour plusieurs AC (conseil franchise, RCF adopt, SAE reprise, DCF/PFI/Tréso MONAP, VDD SFR) → `[TODO]` dans `CONTENT.md` (utiles si on réactive les pages compétences / la navigation).
 - **Liens en ligne** (VDD SFR, Excel SFR, guide macros VBA) : à fournir.
 - **Accès « activités » sur desktop** : la feuille du lit est désormais le CV ; il n'y a plus de hotspot activités dans la scène (seulement la carte mobile). Décider d'un point d'entrée desktop (coords d'un objet ou lien discret).

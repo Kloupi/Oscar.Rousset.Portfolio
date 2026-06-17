@@ -94,11 +94,13 @@
 
 .intro-overline {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.34em;
+  font-size: clamp(0.85rem, 1.6vw, 1.1rem);
+  font-weight: 600;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--color-accent);
-  margin-bottom: 10px;
+  color: var(--color-secondary);
+  text-shadow: 0 1px 10px rgba(245, 240, 232, 0.6);
+  margin-bottom: 14px;
 }
 
 .intro-name {

@@ -19,10 +19,26 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/loader.css" />
   <link rel="stylesheet" href="css/intro.css" />
   <link rel="stylesheet" href="css/room.css" />
 </head>
 <body data-audio-path="assets/audio/Music website.mp3">
+
+  <!-- ============================================================
+       LOADER : écran de chargement (nuages) — précharge les assets
+       puis fond enchaîné vers l'intro. Premier élément = visible d'emblée.
+       ============================================================ -->
+  <div id="loader">
+    <div id="loader-scene">
+      <img id="loader-sky" src="assets/image/Image%20nuage%20init%20P0.png" alt="" />
+    </div>
+    <div id="loader-ui">
+      <span id="loader-overline">Chargement</span>
+      <div id="loader-bar"><div id="loader-bar-fill"></div></div>
+      <span id="loader-pct">0%</span>
+    </div>
+  </div>
 
   <!-- ============================================================
        SECTION INTRO : immeuble au crépuscule + zoom vers la fenêtre
@@ -86,6 +102,7 @@
       <!-- Cadre « Q3 Revenue Breakdown » -->
       <button class="hotspot" data-action="competence" data-slug="analyser" data-ac="AC31.03"
         data-poster="preuves/1-Analyser/AC31.03  Proposer des améliorations des processus/preuve_AC31-03_kit_macros_KPMG_poster.pdf"
+        data-downloads="Télécharger la trace || preuves/1-Analyser/AC31.03  Proposer des améliorations des processus/Trace - AC31-03_Guide_integration_macros_VBA.pdf || Trace - AC31-03_Guide_integration_macros_VBA.pdf"
         style="left:12.38%; top:9.73%; width:7.71%; height:21.42%;">
         <span class="hotspot-label">AC31.03</span>
       </button>
@@ -120,6 +137,7 @@
       <!-- Cadre « Cash Flow Analysis » -->
       <button class="hotspot" data-action="competence" data-slug="piloter" data-ac="AC33.02"
         data-poster="preuves/3-Piloter/AC33.02  Mener un projet collaboratif/preuve_AC33-02_etuexplore_poster.pdf"
+        data-links="Visiter le site Etu'Explore || https://saesiteparis.wixsite.com/explore"
         style="left:79.85%; top:30.01%; width:15.00%; height:25.00%;">
         <span class="hotspot-label">AC33.02</span>
       </button>
@@ -142,12 +160,14 @@
       <!-- Cadre « Debt vs Equity » -->
       <button class="hotspot" data-action="competence" data-slug="produire" data-ac="AC34.03"
         data-poster="preuves/4-Produire/AC34.03GC2F  Réaliser un diagnostic etou un audit pour apporter des conseils/preuve_AC34-03_VDD_SFR_poster.pdf"
+        data-downloads="Télécharger le rapport (PDF) || preuves/4-Produire/AC34.03GC2F  Réaliser un diagnostic etou un audit pour apporter des conseils/Trace - AC34-03_SFR_Rapport_Valorisation.pdf || Trace - AC34-03_SFR_Rapport_Valorisation.pdf ;; Télécharger le modèle (Excel) || preuves/4-Produire/AC34.03GC2F  Réaliser un diagnostic etou un audit pour apporter des conseils/Trace - AC34-03_SFR_MnA_model.xlsx || Trace - AC34-03_SFR_MnA_model.xlsx"
         style="left:49.16%; top:86.07%; width:19.85%; height:11.10%;">
         <span class="hotspot-label">AC34.03</span>
       </button>
       <!-- Cadre « Investment Portfolio » → AC34.01 (DCF MONAP, cf. note PREUVE_1 résolue) -->
       <button class="hotspot" data-action="competence" data-slug="produire" data-ac="AC34.01"
         data-poster="preuves/4-Produire/AC34.01GC2F  Évaluation actifs-passifs/preuve_AC34-01_résoudre les pb d'évaluation d'actif et de passif_poster.pdf"
+        data-downloads="Télécharger la trace || preuves/4-Produire/AC34.01GC2F  Évaluation actifs-passifs/Trace - AC34-01_SAE Finance_Dossier 2.pdf || Trace - AC34-01_SAE Finance_Dossier 2.pdf"
         style="left:68.15%; top:86.04%; width:20.49%; height:11.13%;">
         <span class="hotspot-label">AC34.01</span>
       </button>
@@ -165,8 +185,10 @@
         style="left:29.09%; top:49.48%; width:6.18%; height:7.16%;">
         <span class="hotspot-label">Pitch vidéo</span>
       </button>
-      <!-- Feuille posée sur le lit → CV -->
+      <!-- Feuille posée sur le lit → CV (affiché dans le grand overlay, comme les preuves) -->
       <button class="hotspot" data-action="cv"
+        data-poster="assets/documents/CV_Oscar_Rousset_FR.pdf"
+        data-downloads="Télécharger le CV || assets/documents/CV_Oscar_Rousset_FR.pdf || CV_Oscar_Rousset_FR.pdf"
         style="left:59.93%; top:64.49%; width:10.24%; height:7.91%;">
         <span class="hotspot-label">Mon CV</span>
       </button>
@@ -180,7 +202,9 @@
         <h1 class="room-mobile-name">Oscar Rousset</h1>
         <div class="room-mobile-actions">
           <button id="mobile-btn-video" class="room-mobile-btn">Vidéo</button>
-          <button id="mobile-btn-cv" class="room-mobile-btn">CV</button>
+          <button id="mobile-btn-cv" class="room-mobile-btn"
+            data-poster="assets/documents/CV_Oscar_Rousset_FR.pdf"
+            data-downloads="Télécharger le CV || assets/documents/CV_Oscar_Rousset_FR.pdf || CV_Oscar_Rousset_FR.pdf">CV</button>
           <a href="activites.html" class="room-mobile-btn">Activités</a>
         </div>
       </header>
@@ -244,19 +268,7 @@
       </div>
     </div>
 
-    <!-- Modal : CV -->
-    <div id="modal-cv" class="modal hidden" role="dialog" aria-modal="true">
-      <div class="modal-content modal-content--cv">
-        <button class="modal-close" aria-label="Fermer">&#x2715;</button>
-        <h2 class="modal-title">CV — Oscar Rousset</h2>
-        <div class="cv-preview">
-          <iframe src="assets/documents/CV.pdf" title="CV Oscar Rousset"></iframe>
-        </div>
-        <a href="assets/documents/CV.pdf" download="CV_Oscar_Rousset.pdf" class="btn-download">
-          Télécharger le CV
-        </a>
-      </div>
-    </div>
+    <!-- (Le CV s'affiche désormais dans le grand overlay de preuve #modal-proof) -->
 
   </div>
 
@@ -267,6 +279,8 @@
     <div class="proof-frame">
       <iframe class="proof-doc" title="Preuve (poster PDF)"></iframe>
     </div>
+    <!-- Liens de téléchargement, construits dynamiquement selon data-downloads du cadre -->
+    <div class="proof-downloads hidden"></div>
   </div>
 
   <!-- Bouton audio fixe (visible après l'intro) -->
@@ -287,6 +301,7 @@
   <div id="transition-overlay"></div>
 
   <!-- Scripts -->
+  <script src="js/loader.js" defer></script>
   <script src="js/audio.js" defer></script>
   <script src="js/intro.js" defer></script>
   <script src="js/room.js" defer></script>

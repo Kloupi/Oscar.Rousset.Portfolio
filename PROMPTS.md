@@ -16,8 +16,29 @@ et validée avant de passer à la suivante.
 - `assets/image/Image de fonds P1.png` (P1, ville)
 - `assets/image/Image de fonds P2.png` (P2, fenêtre éclairée)
 - `assets/image/Chambre P3.png` (scène chambre)
-- `assets/audio/Music website.mp3` · `assets/documents/CV.pdf`
+- `assets/audio/Music website.mp3` · `assets/documents/CV_Oscar_Rousset_FR.pdf`
 - Posters : `preuves/<n-Compétence>/<ACxx.yy  Intitulé>/preuve_*_poster.pdf`
+
+---
+
+## État d'avancement (au 2026-06-17) — Version 1 publiée
+
+> Les prompts ci-dessous étaient le plan initial. Voici où en est réellement le projet.
+> Détail complet dans `HISTORIQUE_PROJET.md`.
+
+**✅ Fait (Version 1)**
+- Intro images P0 → P1 → P2 → chambre (dissipation des nuages, fenêtre pulsante, zoom).
+- Chambre : 10 cadres-hotspots (2 AC/mur) + boutons écran→vidéo, feuille→CV, fenêtre du fond→**Sortir**.
+- Survol des surfaces (mur/sol/plafond) → nom de la compétence (sans surlignage).
+- **Overlay de preuve** : au clic, le poster PDF « vient vers » le visiteur (chambre floutée), fermeture × / fond / Échap.
+- Audio (musique de fond + mute), modals CV et placeholder vidéo, version mobile en cartes.
+- Hébergement prêt : `.nojekyll`, `.gitignore`, `README.md` ; dépôt Git + **push GitHub** ; sauvegarde `Portfolio_v1`.
+
+**🔜 À faire (Version 2)**
+- **Vidéo de présentation** : remplacer le placeholder (→ ÉTAPE 9 ci-dessous).
+- ✅ **Nouveau CV** fourni (`assets/documents/CV_Oscar_Rousset_FR.pdf`).
+- Activer **GitHub Pages** et vérifier le site en ligne.
+- *(optionnel)* navigation préc./suivant dans l'overlay + liens documents en ligne ; rédiger les interprétations `[TODO]` de `CONTENT.md` ; point d'entrée « activités » sur desktop.
 
 ---
 
@@ -42,7 +63,7 @@ Ne code rien avant ma confirmation.
 Sans toucher au design, mets index.html en cohérence avec les fichiers réels :
 - corrige les <img> pour pointer vers les vrais fichiers de assets/image/
   (Image nuage init P0.png, Image de fonds P1.png, Image de fonds P2.png, Chambre P3.png) ;
-- vérifie data-audio-path = "assets/audio/Music website.mp3" et le PDF = "assets/documents/CV.pdf" ;
+- vérifie data-audio-path = "assets/audio/Music website.mp3" et le PDF = "assets/documents/CV_Oscar_Rousset_FR.pdf" ;
 - garde css/main.css (variables :root) inchangé.
 Liste les références cassées que tu corriges.
 ```
@@ -151,7 +172,7 @@ reprise à la fermeture.
 
 ```
 Vérifie/complète les deux modals de index.html :
-1. CV : iframe sur assets/documents/CV.pdf + bouton "Télécharger le CV" (download) + fermer.
+1. CV : iframe sur assets/documents/CV_Oscar_Rousset_FR.pdf + bouton "Télécharger le CV" (download) + fermer.
 2. Vidéo : placeholder "Vidéo de présentation — à venir" + commentaire TODO pour l'iframe future.
    La musique se coupe à l'ouverture et reprend à la fermeture.
 Animations d'ouverture GSAP (fade + scale).

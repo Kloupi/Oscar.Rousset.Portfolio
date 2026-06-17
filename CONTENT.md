@@ -5,6 +5,8 @@ Ce fichier contient tout le contenu textuel et les références aux fichiers du 
 Les sections marquées `[TODO]` sont à compléter par Oscar avant de coder la section correspondante.
 
 > **Refonte de juin 2026 :** structure passée de « 1 ensemble de preuves par compétence » à **2 apprentissages critiques (AC) = 2 preuves par compétence** (10 preuves au total), alignée sur l'arborescence réelle `/preuves/`. Les images de scène (intro + chambre) remplacent le SVG/CSS pur. Voir `CLAUDE.md` et `HISTORIQUE_PROJET.md`.
+>
+> **Statut au 2026-06-17 — Version 1 publiée** (GitHub Pages). Contenu encore à fournir par Oscar : **vidéo de présentation** (placeholder en place) + **CV à jour**, et les interprétations marquées `[TODO]` ci-dessous.
 
 ---
 
@@ -46,9 +48,9 @@ Les sections marquées `[TODO]` sont à compléter par Oscar avant de coder la s
 
 ## CV
 
-- Fichier PDF : `assets/documents/CV.pdf` ✅
+- Fichier PDF : `assets/documents/CV_Oscar_Rousset_FR.pdf` ✅
 - Prévisualisable sur le site : oui (via modal / overlay)
-- Téléchargeable : oui (bouton de téléchargement direct, nom suggéré `CV_Oscar_Rousset.pdf`)
+- Téléchargeable : oui (bouton de téléchargement direct, fichier `CV_Oscar_Rousset_FR.pdf`)
 - Emplacement dans la chambre : la feuille posée sur le lit
 
 ---
@@ -274,5 +276,5 @@ Fichiers réels disponibles :
 - `assets/image/Image de fonds P2.png` ✅
 - `assets/image/Chambre P3.png` ✅
 - `assets/audio/Music website.mp3` ✅
-- `assets/documents/CV.pdf` ✅
+- `assets/documents/CV_Oscar_Rousset_FR.pdf` ✅
 - 10 posters de preuve `preuves/<Compétence>/<AC>/preuve_*_poster.pdf` ✅ (cf. arborescence dans `CLAUDE.md`)

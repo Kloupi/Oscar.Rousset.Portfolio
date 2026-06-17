@@ -30,6 +30,44 @@ function openProof(spot) {
   // Chemins avec espaces/accents → encodeURI ; on masque la barre d'outils du PDF
   iframe.src = encodeURI(poster) + '#toolbar=0&navpanes=0&view=Fit';
 
+  // Liens de téléchargement : construits selon data-downloads du cadre.
+  // Format : "Libellé || chemin || nomDeFichier ;; Libellé2 || chemin2 || nomDeFichier2"
+  const dlWrap = overlay.querySelector('.proof-downloads');
+  dlWrap.innerHTML = '';
+  const spec = spot.dataset.downloads;
+  if (spec) {
+    spec.split(';;').forEach(entry => {
+      const [label, path, filename] = entry.split('||').map(s => s.trim());
+      if (!path) return;
+      const a = document.createElement('a');
+      a.className = 'proof-download';
+      a.href = encodeURI(path);
+      a.setAttribute('download', filename || path.split('/').pop()); // télécharge (https)
+      a.target = '_blank';        // secours : ouvre dans un nouvel onglet (ex. en local file://)
+      a.rel = 'noopener';
+      a.textContent = label || 'Télécharger';
+      dlWrap.appendChild(a);
+    });
+  }
+
+  // Liens externes (site web) : "Libellé || URL ;; …" → bouton qui ouvre un nouvel onglet
+  const links = spot.dataset.links;
+  if (links) {
+    links.split(';;').forEach(entry => {
+      const [label, url] = entry.split('||').map(s => s.trim());
+      if (!url) return;
+      const a = document.createElement('a');
+      a.className = 'proof-download';
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = label || 'Voir le site';
+      dlWrap.appendChild(a);
+    });
+  }
+
+  dlWrap.classList.toggle('hidden', dlWrap.children.length === 0);
+
   const start = spot.getBoundingClientRect(); // position du cadre à l'écran
   const end   = proofTargetRect();
 

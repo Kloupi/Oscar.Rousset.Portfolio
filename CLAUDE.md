@@ -58,7 +58,7 @@ Les **5 surfaces** (plafond, sol, mur gauche, mur droit, mur du fond) portent to
 - Au clic : ouverture de l'overlay de preuve correspondant (voir ci-dessous).
 
 Éléments supplémentaires dans la chambre :
-- Une **feuille posée sur le lit** : cliquable → modal de prévisualisation + téléchargement du **CV** (`assets/documents/CV.pdf`).
+- Une **feuille posée sur le lit** : cliquable → affichage du **CV** dans le grand overlay (`#modal-proof`, comme les preuves) + bouton « Télécharger le CV » (`assets/documents/CV_Oscar_Rousset_FR.pdf`).
 - Un **écran d'ordinateur sur le bureau** : cliquable → **vidéo de présentation** (placeholder pour l'instant, vidéo à intégrer via l'étape « vidéo » dans `PROMPTS.md`).
 - Un **bouton audio** fixe en bas à droite : mute/unmute la musique de fond (`assets/audio/Music website.mp3`), déclenchée à l'entrée dans la chambre.
 - La **fenêtre du fond** (vue sur la ville) est un bouton **« Sortir »** : elle ramène à l'extérieur (image P1) via `returnToCity()`. Depuis la ville, recliquer la fenêtre éclairée fait re-rentrer dans la chambre.
@@ -117,7 +117,7 @@ Portfolio/
 │   ├── audio/
 │   │   └── Music website.mp3        ← ✅ disponible (NB : espace, pas underscore)
 │   ├── documents/
-│   │   └── CV.pdf                    ← ✅ disponible
+│   │   └── CV_Oscar_Rousset_FR.pdf   ← ✅ disponible
 │   └── image/
 │       ├── Image nuage init P0.png  ← ✅ P0 (nuages)
 │       ├── Image de fonds P1.png    ← ✅ P1 (ville)
@@ -160,6 +160,17 @@ Dépendances externes via CDN uniquement :
 - **Google Fonts** — Playfair Display, Inter, JetBrains Mono
 
 Pas de React, Vue, npm, ou bundler. Tout fonctionne en ouvrant index.html dans un navigateur.
+
+---
+
+## Déploiement & versions
+
+- **Dépôt Git :** `https://github.com/Kloupi/Oscar.Rousset.Portfolio` (branche `main`).
+- **Hébergement :** GitHub Pages (branche `main`, dossier racine), `.nojekyll` présent. URL publique : **https://kloupi.github.io/Oscar.Rousset.Portfolio/**.
+- **Mettre à jour le site :** `git add -A` → `git commit -m "…"` → `git push` (Pages se redéploie en 1–2 min).
+- **Sauvegardes :** historique Git (versionnage principal) + copie figée `..\Sprint\Portfolio_v1` (Version 1).
+- **Contrainte Windows :** chemins > 260 caractères (`LongPathsEnabled=0`). Garder les noms de dossiers de preuves **courts** ; le dossier AC34.01 a déjà été raccourci pour cette raison. `git config core.longpaths true` est activé sur le dépôt.
+- **Version 1** (2026-06-17) : intro images + chambre + overlay de preuves. **Version 2** prévue : vidéo de présentation + CV à jour.
 
 ---
 

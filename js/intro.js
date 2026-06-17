@@ -40,8 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
     windowBtn.style.pointerEvents = 'none';
 
     const tl = gsap.timeline();
-    tl.to(p2, { opacity: 1, duration: 0.6, ease: 'power1.inOut' })                          // P1 → P2 (fenêtre éclairée)
-      .to(scene, { scale: 11, transformOrigin: '51.04% 48.66%', duration: 2, ease: 'power2.inOut' }, '-=0.1')
+    // --- TEST : image P2 retirée. On zoome directement dans la fenêtre de P1 vers la chambre. ---
+    // Pour rétablir P2, décommente la ligne suivante et remets l'offset '-=0.1' sur le zoom.
+    // tl.to(p2, { opacity: 1, duration: 0.6, ease: 'power1.inOut' });                       // crossfade P1 → P2 (fenêtre éclairée)
+    tl.to(scene, { scale: 11, transformOrigin: '51.04% 48.66%', duration: 2, ease: 'power2.inOut' }) // zoom dans la fenêtre
       .to(overlay, { opacity: 1, duration: 0.5, ease: 'power2.in' }, '-=0.7')               // fondu vers blanc
       .call(() => {
         sessionStorage.setItem('room_unlocked', '1');

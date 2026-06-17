@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
         openModal('modal-video');
         window.portfolioAudio?.pause();
       } else if (action === 'cv') {
-        openModal('modal-cv');
+        // Le CV s'affiche dans le grand overlay (comme les preuves) + bouton de téléchargement
+        if (typeof openProof === 'function') openProof(spot);
       } else if (action === 'activites') {
         goToActivites();
       } else if (action === 'exit') {
@@ -68,7 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   if (mobileBtnCv) {
-    mobileBtnCv.addEventListener('click', () => openModal('modal-cv'));
+    mobileBtnCv.addEventListener('click', () => {
+      if (typeof openProof === 'function') openProof(mobileBtnCv);
+    });
   }
 
 });

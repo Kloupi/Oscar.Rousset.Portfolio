@@ -1,0 +1,75 @@
+/* ============================================================
+   LOADER — écran de chargement (nuages) avant l'intro du building
+   Reprend la DA du tout premier visuel (ciel/nuages = P0), même
+   cadrage 16:9 que #intro-scene pour un raccord sans saut.
+   ============================================================ */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;                 /* au-dessus de l'intro (100) et de tout le reste */
+  background: var(--color-bg);   /* fond sombre : pas de flash blanc avant l'image */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Même boîte 16:9 centrée que #intro-scene → les nuages sont calés à l'identique */
+#loader-scene {
+  position: relative;
+  width: min(100vw, 177.78vh);
+  height: min(56.25vw, 100vh);
+}
+
+#loader-sky {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Indication de progression, discrète, posée dans le décor de nuages */
+#loader-ui {
+  position: absolute;
+  left: 50%;
+  bottom: 16%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 2;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
+}
+
+#loader-overline {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+#loader-bar {
+  width: 220px;
+  max-width: 60vw;
+  height: 2px;
+  background: rgba(245, 240, 232, 0.18);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+#loader-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--color-accent);
+}
+
+#loader-pct {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: var(--color-accent);
+  opacity: 0.85;
+}

@@ -4,6 +4,11 @@ Portfolio web immersif : on entre par une fenêtre dans une chambre-bureau où c
 mur / sol / plafond représente une compétence GC2F, et chaque cadre ouvre une preuve
 (poster PDF qui « vient vers » le visiteur).
 
+> **Statut : Version 1 publiée** (2026-06-17).
+> En ligne : **https://kloupi.github.io/Oscar.Rousset.Portfolio/** (après activation de Pages)
+> Dépôt : https://github.com/Kloupi/Oscar.Rousset.Portfolio
+> Restent à intégrer : vidéo de présentation + CV à jour (→ Version 2).
+
 ## Lancer en local
 Site statique, sans build. Ouvrir `index.html` dans un navigateur (Chrome / Edge / Firefox).
 Pour éviter les restrictions `file://` (chargement des PDF), servir le dossier via un petit
@@ -17,6 +22,20 @@ Inter, JetBrains Mono). Aucun framework, aucun bundler.
 
 ## Hébergement
 **GitHub Pages** (branche `main`, dossier racine). Le fichier `.nojekyll` désactive Jekyll.
+Dépôt : `https://github.com/Kloupi/Oscar.Rousset.Portfolio` · URL publique : `https://kloupi.github.io/Oscar.Rousset.Portfolio/`.
+
+### Mettre à jour le site en ligne
+Après modifications locales :
+```bash
+git add -A
+git commit -m "Description du changement"
+git push
+```
+GitHub Pages se redéploie automatiquement en 1–2 min.
+
+## Sauvegardes
+- `..\Sprint\Portfolio_v1` — copie figée de la **Version 1** (dossier frère, hors dépôt Git).
+- L'historique Git du dépôt sert de versionnage principal (chaque commit = un point de restauration).
 
 ## Structure
 - `index.html` — intro (images P0 → P2) + chambre interactive + overlay de preuve
