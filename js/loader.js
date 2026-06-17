@@ -1,10 +1,14 @@
-// Écran de chargement : précharge les assets lourds (images de scène + posters PDF)
-// sur fond de nuages, affiche une progression visible jusqu'à 100 %, puis fond enchaîné
-// vers l'intro. La progression suit À LA FOIS le chargement réel et une durée minimale,
+// Écran de chargement : précharge les IMAGES de scène (P0/P1/P2/chambre) sur fond de
+// nuages, affiche une progression visible jusqu'à 100 %, puis fond enchaîné vers l'intro.
+// Les posters PDF ne sont PAS préchargés ici : ils se chargent à la demande (au clic sur
+// un cadre). La progression suit À LA FOIS le chargement réel et une durée minimale,
 // pour qu'on voie toujours la barre se remplir (même quand tout est déjà en cache, en local).
 (function () {
   const loader = document.getElementById('loader');
   if (!loader) return;
+
+  // Verrou global : l'intro restera inerte tant qu'on n'a pas atteint 100 % (voir js/intro.js)
+  window.__assetsReady = false;
 
   const fill = document.getElementById('loader-bar-fill');
   const pct  = document.getElementById('loader-pct');
@@ -17,15 +21,12 @@
   }
   window.addEventListener('wheel', blockWheel, { capture: true, passive: false });
 
-  // Assets à précharger : images de scène (P0/P1/P2/chambre) + les 10 posters PDF
+  // À précharger = uniquement les images de scène (les posters PDF se chargent au clic)
   function collectAssets() {
-    const imgs = ['#intro-p0', '#intro-p1', '#intro-p2', '#room-bg']
+    return ['#intro-p0', '#intro-p1', '#intro-p2', '#room-bg']
       .map(sel => document.querySelector(sel))
       .filter(Boolean)
       .map(el => el.getAttribute('src'));
-    const pdfs = Array.from(document.querySelectorAll('.hotspot[data-poster]'))
-      .map(el => encodeURI(el.dataset.poster));
-    return Array.from(new Set(imgs.concat(pdfs)));
   }
 
   const assets = collectAssets();
@@ -42,22 +43,8 @@
     });
   }
 
-  // PDF : chauffe le cache (best-effort) ; échoue proprement en local (fetch file:// bloqué)
-  function preloadPdf(url) {
-    return new Promise(resolve => {
-      try {
-        fetch(url).then(r => r.blob()).then(() => resolve()).catch(() => resolve());
-      } catch (e) {
-        resolve();
-      }
-    });
-  }
-
-  // Lance les préchargements en parallèle
-  assets.forEach(a => {
-    const isPdf = /\.pdf($|[?#])/i.test(a);
-    (isPdf ? preloadPdf(a) : preloadImage(a)).then(bump);
-  });
+  // Lance le préchargement des images en parallèle
+  assets.forEach(src => preloadImage(src).then(bump));
 
   // Durée minimale d'affichage : la barre met au moins MIN_MS à atteindre 100 %,
   // pour qu'on la voie se remplir même si les assets sont déjà en cache.
@@ -85,6 +72,10 @@
     finished = true;
     if (rafId) cancelAnimationFrame(rafId);
     window.removeEventListener('wheel', blockWheel, { capture: true });
+
+    // Déverrouille l'intro (assets prêts à 100 %)
+    window.__assetsReady = true;
+    if (typeof window.__onAssetsReady === 'function') window.__onAssetsReady();
     if (fill) fill.style.width = '100%';
     if (pct)  pct.textContent  = '100%';
 

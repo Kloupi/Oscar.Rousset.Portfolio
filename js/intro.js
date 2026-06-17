@@ -11,12 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const windowBtn = document.getElementById('intro-window');
   const title     = document.getElementById('intro-overlay-text');
 
-  let step = 0; // 0 = nuages affichés, 1 = fenêtre révélée, 2 = entrée/chambre
+  let step = 0;     // 0 = nuages affichés, 1 = fenêtre révélée, 2 = entrée/chambre
+  let ready = false; // verrou : aucune interaction tant que le loader n'a pas fini (assets à 100 %)
 
   // Étape 1 : dissipe les nuages (P0) pour révéler la ville (P1) + active la fenêtre
   // Effet « on traverse les nuages » : zoom avant + flou croissant + fondu.
   function dissipateClouds() {
-    if (step !== 0) return;
+    if (!ready || step !== 0) return;
     step = 1;
     btn.disabled = true;
     gsap.to(title, { opacity: 0, duration: 0.5, ease: 'power1.out' });
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Étape 2 : allume la fenêtre (P2), zoom dedans, puis bascule vers la chambre
   function enterWindow() {
-    if (step !== 1) return;
+    if (!ready || step !== 1) return;
     step = 2;
     windowBtn.classList.remove('active');
     windowBtn.style.pointerEvents = 'none';
@@ -85,6 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (step === 0) dissipateClouds();
     else if (step === 1) enterWindow();
   }, { passive: true });
+
+  // Déverrouille l'intro uniquement quand le loader a fini (assets prêts à 100 %).
+  // Si le loader est absent (window.__assetsReady non défini) → débloqué d'emblée.
+  if (window.__assetsReady === false) {
+    window.__onAssetsReady = function () { ready = true; };
+  } else {
+    ready = true;
+  }
 
   // Retour depuis une page compétence : aller directement à la chambre sans rejouer l'intro
   // (les fonctions ci-dessus restent disponibles, ex. bouton « Sortir »).
