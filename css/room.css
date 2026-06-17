@@ -1,0 +1,532 @@
+/* ============================================================
+   ROOM — Scène interactive (image chambre + hotspots)
+   ============================================================ */
+
+#room {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Masquage : le sélecteur ID + .hidden l'emporte sur "#room { display:flex }" */
+#room.hidden {
+  display: none;
+}
+
+/* Scène 16:9 centrée, qui remplit l'écran sans déformer l'image
+   (cible du zoom GSAP vers les compétences) */
+#room-scene {
+  position: relative;
+  width: min(100vw, 177.78vh);
+  height: min(56.25vw, 100vh);
+  will-change: transform;
+}
+
+#room-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ============================================================
+   HOTSPOTS — zones cliquables mappées sur les objets
+   ============================================================ */
+.hotspot {
+  position: absolute;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;                 /* au-dessus des surfaces (survol/clic prioritaires) */
+}
+
+/* ============================================================
+   SURFACES (murs / sol / plafond) = compétences
+   Survol = révèle UNIQUEMENT le nom de la compétence (aucun surlignage de zone)
+   ============================================================ */
+.surface {
+  position: absolute;
+  inset: 0;
+  clip-path: var(--clip, none);
+  background: transparent;    /* jamais de remplissage / surlignage */
+  z-index: 1;                 /* sous les cadres */
+}
+
+/* Label positionné à un point précis de la surface, hors de tout clip-path */
+.surface-label {
+  position: absolute;
+  z-index: 6;                 /* au-dessus de tout, jamais rogné */
+  transform: translate(-50%, -50%) translateY(10px);
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2.6vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.85);
+  white-space: nowrap;
+  pointer-events: none;       /* n'intercepte jamais la souris */
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.surface-label.is-active {
+  opacity: 0.95;
+  transform: translate(-50%, -50%) translateY(0);
+}
+
+.hotspot:focus-visible {
+  outline: none;
+}
+
+/* Cadre « tableau » en perspective : forme trapézoïdale via --clip,
+   propre à chaque mur / sol / plafond (définie dans le HTML) */
+.hotspot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  clip-path: var(--clip, none);
+  background: rgba(201, 168, 76, 0.20);
+  filter: drop-shadow(0 0 11px rgba(201, 168, 76, 0.55));
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.hotspot:hover::after,
+.hotspot:focus-visible::after {
+  opacity: 1;
+}
+
+/* Marqueur pulsant : indique que l'objet est interactif */
+.hotspot::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.92);
+  box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.55);
+  animation: hotspot-ping 2.6s ease-out infinite;
+  transition: opacity 0.2s ease;
+}
+
+@keyframes hotspot-ping {
+  0%   { box-shadow: 0 0 0 0   rgba(201, 168, 76, 0.5);  opacity: 0.95; }
+  70%  { box-shadow: 0 0 0 15px rgba(201, 168, 76, 0);   opacity: 0.7; }
+  100% { box-shadow: 0 0 0 0   rgba(201, 168, 76, 0);    opacity: 0.95; }
+}
+
+.hotspot:hover::before,
+.hotspot:focus-visible::before {
+  opacity: 0;
+}
+
+/* Étiquette de l'objet (révélée au survol) */
+.hotspot-label {
+  position: relative;
+  z-index: 3;
+  font-family: var(--font-display);
+  font-size: clamp(0.72rem, 1.3vw, 1rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  background: rgba(10, 22, 40, 0.88);
+  border: 1px solid rgba(201, 168, 76, 0.5);
+  padding: 6px 14px;
+  border-radius: 3px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.hotspot:hover .hotspot-label,
+.hotspot:focus-visible .hotspot-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Bouton « Sortir » (fenêtre du fond) : zone discrète, non signalée.
+   Pas de point pulsant ni de label — seulement un léger halo au survol. */
+.hotspot--exit::before {
+  display: none;              /* pas de marqueur pulsant */
+}
+.hotspot--exit .hotspot-label {
+  display: none;              /* aucun texte « Sortir » affiché */
+}
+.hotspot--exit::after {
+  background: rgba(201, 168, 76, 0.08);
+  filter: drop-shadow(0 0 8px rgba(201, 168, 76, 0.30));
+}
+
+/* ============================================================
+   OVERLAY DE PREUVE — le poster PDF « vient vers » le visiteur,
+   la chambre reste visible (floutée) en arrière-plan
+   ============================================================ */
+.proof-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 320;
+  background: rgba(7, 16, 32, 0.55);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.proof-overlay.hidden {
+  display: none;
+}
+
+/* Le cadre qui s'agrandit depuis le hotspot jusqu'au centre (position pilotée en JS) */
+.proof-frame {
+  position: fixed;
+  background: var(--color-surface);
+  border: 1px solid rgba(201, 168, 76, 0.40);
+  border-radius: 4px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.62);
+  overflow: hidden;
+  will-change: left, top, width, height;
+}
+
+.proof-doc {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  background: #ffffff;
+}
+
+.proof-close {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 330;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--color-text);
+  background: rgba(10, 22, 40, 0.70);
+  border: 1px solid rgba(201, 168, 76, 0.40);
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0.82;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.proof-close:hover {
+  opacity: 1;
+  background: rgba(201, 168, 76, 0.18);
+}
+
+/* ============================================================
+   MODALS
+   ============================================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 16, 32, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  backdrop-filter: blur(4px);
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: var(--color-surface);
+  border: 1px solid rgba(201, 168, 76, 0.28);
+  border-radius: 4px;
+  padding: 36px 40px 32px;
+  max-width: 720px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--color-text);
+  opacity: 0.55;
+  transition: opacity 0.2s;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  opacity: 1;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  letter-spacing: 0.05em;
+}
+
+/* Modal vidéo : zone placeholder */
+.video-placeholder {
+  background: var(--color-bg);
+  border: 1px solid rgba(42, 74, 127, 0.35);
+  border-radius: 3px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.video-placeholder-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--color-text);
+  opacity: 0.75;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.video-placeholder-meta {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-accent);
+  opacity: 0.45;
+  letter-spacing: 0.14em;
+  text-align: center;
+}
+
+/* Modal CV */
+.modal-content--cv {
+  max-width: 860px;
+}
+
+.cv-preview {
+  background: var(--color-bg);
+  border: 1px solid rgba(42, 74, 127, 0.28);
+  border-radius: 3px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.cv-preview iframe {
+  width: 100%;
+  height: 520px;
+  border: none;
+  display: block;
+}
+
+.btn-download {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 10px 28px;
+  transition: background 0.2s;
+}
+
+.btn-download:hover {
+  background: rgba(201, 168, 76, 0.1);
+}
+
+/* #room-cards masqué sur desktop, révélé par le media query mobile */
+#room-cards {
+  display: none;
+}
+
+/* ============================================================
+   RESPONSIVE — mobile < 768px
+   ============================================================ */
+@media (max-width: 767px) {
+
+  /* La scène image + hotspots disparaît au profit des cartes */
+  #room {
+    overflow-y: auto;
+    display: block;
+  }
+
+  #room-scene {
+    display: none;
+  }
+
+  /* Conteneur de navigation mobile */
+  #room-cards {
+    display: flex;
+    flex-direction: column;
+    padding: 36px 20px 100px;
+    min-height: 100vh;
+  }
+
+  .room-mobile-header {
+    margin-bottom: 36px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.18);
+  }
+
+  .room-mobile-overline {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-text);
+    opacity: 0.42;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .room-mobile-name {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 9vw, 3rem);
+    font-weight: 600;
+    color: var(--color-accent);
+    line-height: 1.1;
+    margin-bottom: 22px;
+  }
+
+  .room-mobile-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .room-mobile-btn {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    padding: 10px 18px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .room-mobile-btn:hover,
+  .room-mobile-btn:focus {
+    border-color: var(--color-accent);
+    background: rgba(201, 168, 76, 0.08);
+    outline: none;
+  }
+
+  /* Cartes de compétences */
+  .room-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--color-surface);
+    border: 1px solid rgba(42, 74, 127, 0.28);
+    border-radius: 4px;
+    padding: 20px 22px;
+    margin-bottom: 10px;
+    min-height: 72px;
+    color: var(--color-text);
+    transition: border-color 0.2s;
+  }
+
+  .room-card:last-child {
+    margin-bottom: 0;
+  }
+
+  .room-card:hover,
+  .room-card:active {
+    border-color: rgba(201, 168, 76, 0.42);
+  }
+
+  .room-card-num {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--color-accent);
+    opacity: 0.5;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+    min-width: 22px;
+  }
+
+  .room-card-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .room-card-label {
+    font-family: var(--font-display);
+    font-size: 1.22rem;
+    color: var(--color-accent);
+    display: block;
+  }
+
+  .room-card-sub {
+    font-size: 0.78rem;
+    color: var(--color-text);
+    opacity: 0.52;
+    line-height: 1.38;
+    display: block;
+  }
+
+  .room-card-arrow {
+    color: var(--color-accent);
+    opacity: 0.45;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  /* Modals plein écran sur mobile */
+  .modal-content {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    border: none;
+    border-top: 2px solid rgba(201, 168, 76, 0.22);
+    padding: 60px 20px 40px;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  .cv-preview iframe {
+    height: 52vh;
+  }
+
+  /* Bouton télécharger le CV */
+  .btn-download {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}

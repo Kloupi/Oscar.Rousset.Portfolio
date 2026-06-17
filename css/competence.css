@@ -1,0 +1,342 @@
+/* ============================================================
+   PAGES COMPÉTENCES — styles partagés
+   ============================================================ */
+
+body.page-competence {
+  overflow-y: auto;
+  min-height: 100vh;
+}
+
+.competence-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+}
+
+/* Header */
+.comp-header {
+  margin-bottom: 60px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.18);
+}
+
+.btn-retour {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  opacity: 0.55;
+  margin-bottom: 36px;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.btn-retour:hover {
+  opacity: 1;
+  color: var(--color-accent);
+}
+
+.comp-titre {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+  font-weight: 600;
+  color: var(--color-accent);
+  line-height: 1.08;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+.comp-sous-titre {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--color-text);
+  opacity: 0.45;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.comp-niveau {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text);
+  opacity: 0.68;
+  line-height: 1.5;
+}
+
+/* Sections */
+.comp-section {
+  margin-bottom: 56px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(42, 74, 127, 0.35);
+  letter-spacing: 0.02em;
+}
+
+.definition-text {
+  font-size: 1.05rem;
+  line-height: 1.82;
+  color: var(--color-text);
+  opacity: 0.88;
+}
+
+/* Cartes de preuve */
+.preuves-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.preuve-card {
+  background: var(--color-surface);
+  border: 1px solid rgba(42, 74, 127, 0.28);
+  border-radius: 4px;
+  padding: 28px 32px 24px;
+  transition: border-color 0.25s;
+}
+
+.preuve-card:hover {
+  border-color: rgba(201, 168, 76, 0.28);
+}
+
+.preuve-titre {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.preuve-meta {
+  font-size: 0.8rem;
+  color: var(--color-text);
+  opacity: 0.5;
+  margin-bottom: 18px;
+  letter-spacing: 0.04em;
+}
+
+.meta-type {
+  font-weight: 500;
+}
+
+.preuve-interpretation {
+  font-size: 0.97rem;
+  line-height: 1.78;
+  color: var(--color-text);
+  opacity: 0.85;
+  margin-bottom: 22px;
+}
+
+/* Tags AC */
+.ac-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.ac-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-accent);
+  border: 1px solid rgba(201, 168, 76, 0.38);
+  padding: 3px 10px;
+  border-radius: 2px;
+  letter-spacing: 0.06em;
+}
+
+/* Bouton document */
+.btn-document {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border: 1px solid rgba(201, 168, 76, 0.45);
+  padding: 9px 24px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-document:hover {
+  background: rgba(201, 168, 76, 0.08);
+  border-color: var(--color-accent);
+}
+
+/* Footer */
+.comp-footer {
+  padding-top: 40px;
+  border-top: 1px solid rgba(42, 74, 127, 0.28);
+}
+
+/* ============================================================
+   PAGE ACTIVITÉS — cartes d'activité et badges compétences
+   ============================================================ */
+
+.activite-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.activite-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.activite-titre {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.35;
+}
+
+.activite-periode {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-accent);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  padding: 3px 9px;
+  border-radius: 2px;
+  white-space: nowrap;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+
+.activite-description {
+  font-size: 0.97rem;
+  line-height: 1.78;
+  color: var(--color-text);
+  opacity: 0.85;
+  margin-top: 14px;
+  margin-bottom: 22px;
+}
+
+/* Badges compétences cliquables */
+.activite-comp-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+  margin-top: auto;
+}
+
+.comp-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-accent);
+  border: 1px solid rgba(201, 168, 76, 0.38);
+  padding: 4px 12px;
+  border-radius: 2px;
+  letter-spacing: 0.06em;
+  transition: background 0.18s, border-color 0.18s;
+}
+
+.comp-badge:hover {
+  background: rgba(201, 168, 76, 0.1);
+  border-color: var(--color-accent);
+}
+
+/* ============================================================
+   APERÇU DE PREUVE — PDF affiché directement dans la carte
+   ============================================================ */
+.preuve-doc {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 6px 0 14px;
+  border: 1px solid rgba(42, 74, 127, 0.30);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.preuve-doc object,
+.preuve-doc iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Message de repli si le navigateur ne peut pas afficher le PDF en ligne */
+.preuve-doc-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+  color: #333;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.preuve-doc-fallback a {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
+
+/* Lien discret « ouvrir en grand » sous l'aperçu */
+.preuve-doc-link {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  opacity: 0.78;
+  margin-bottom: 4px;
+  transition: opacity 0.2s;
+}
+
+.preuve-doc-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 767px) {
+  .competence-page {
+    padding: 32px 16px 64px;
+  }
+
+  .preuve-card {
+    padding: 20px 18px;
+  }
+
+  /* Touch targets ≥ 44px pour les éléments interactifs */
+  .btn-retour {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .btn-document {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .comp-badge {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Aperçu PDF un peu plus haut sur mobile pour la lisibilité */
+  .preuve-doc {
+    aspect-ratio: 3 / 4;
+  }
+}

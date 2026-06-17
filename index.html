@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oscar Rousset — Portfolio BUT GEA GC2F</title>
+  <meta name="description" content="Portfolio Oscar Rousset — BUT GEA GC2F · IUT de Paris Rives de Seine" />
+  <meta property="og:title" content="Oscar Rousset — Portfolio" />
+  <meta property="og:description" content="Portfolio Oscar Rousset — BUT GEA GC2F · IUT de Paris Rives de Seine" />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/intro.css" />
+  <link rel="stylesheet" href="css/room.css" />
+</head>
+<body data-audio-path="assets/audio/Music website.mp3">
+
+  <!-- ============================================================
+       SECTION INTRO : immeuble au crépuscule + zoom vers la fenêtre
+       ============================================================ -->
+  <div id="intro">
+    <div id="intro-scene">
+      <!-- Couches empilées : P1 (ville) au fond, P2 (fenêtre éclairée) par-dessus,
+           P0 (nuages) au premier plan. La séquence dissipe P0 puis allume P2. -->
+      <img id="intro-p1" class="intro-layer" src="assets/image/Image%20de%20fonds%20P1.png" alt="Vue de la ville la nuit" />
+      <img id="intro-p2" class="intro-layer" src="assets/image/Image%20de%20fonds%20P2.png" alt="Vue de la ville, fenêtre éclairée" />
+      <img id="intro-p0" class="intro-layer" src="assets/image/Image%20nuage%20init%20P0.png" alt="Nuages" />
+
+      <!-- Fenêtre interactive (coordonnées mesurées par diff P1/P2) -->
+      <button id="intro-window" aria-label="Entrer par la fenêtre éclairée"
+        style="left:48.26%; top:44.21%; width:5.56%; height:8.89%;">
+        <span id="intro-window-glow"></span>
+      </button>
+    </div>
+
+    <div id="intro-overlay-text">
+      <p class="intro-overline">Portfolio · BUT GEA GC2F</p>
+      <h1 class="intro-name">Oscar Rousset</h1>
+    </div>
+
+    <!-- Bouton d'entrée -->
+    <button id="btn-entrer">Entrer</button>
+  </div>
+
+  <!-- ============================================================
+       SECTION CHAMBRE : scène interactive (affichée après l'intro)
+       ============================================================ -->
+  <div id="room" class="hidden">
+
+    <div id="room-scene">
+      <img id="room-bg" src="assets/image/Chambre%20P3.png" alt="Chambre-bureau d'Oscar Rousset" />
+
+      <!-- ===== SURFACES (murs / sol / plafond) = compétences =====
+           Zones de survol (clip-path = polygone de la boîte isométrique, plus larges
+           que les objets dessinés). Placées AVANT/sous les cadres (z-index plus bas).
+           AUCUN surlignage : le survol ne fait apparaître que le label (séparé, non clippé). -->
+      <div class="surface" data-surface="evaluer"  style="--clip: polygon(15.8% 0%, 89.1% 0%, 66.9% 23.8%, 32.8% 23.8%);"></div>
+      <div class="surface" data-surface="decider"  style="--clip: polygon(32.8% 23.8%, 66.9% 23.8%, 62.8% 63.3%, 34.0% 63.3%);"></div>
+      <div class="surface" data-surface="analyser" style="--clip: polygon(15.8% 0%, 32.8% 23.8%, 34.0% 63.3%, 8.6% 99.2%);"></div>
+      <div class="surface" data-surface="piloter"  style="--clip: polygon(89.1% 0%, 66.9% 23.8%, 62.8% 63.3%, 99.8% 99.2%);"></div>
+      <div class="surface" data-surface="produire" style="--clip: polygon(34.0% 63.3%, 62.8% 63.3%, 99.8% 99.2%, 8.6% 99.2%);"></div>
+
+      <!-- Labels de compétence (non clippés, centrés sur le point exact de chaque surface) -->
+      <span class="surface-label" data-label="evaluer"  style="left:61.7%; top:18.7%;">Évaluer</span>
+      <span class="surface-label" data-label="decider"  style="left:48.9%; top:30.5%;">Décider</span>
+      <span class="surface-label" data-label="analyser" style="left:13.0%; top:76.2%;">Analyser</span>
+      <span class="surface-label" data-label="piloter"  style="left:88.3%; top:68.5%;">Piloter</span>
+      <span class="surface-label" data-label="produire" style="left:33.5%; top:89.5%;">Produire</span>
+
+      <!-- Zones cliquables (hotspots) mappées sur les cadres déjà dessinés dans l'image.
+           Coordonnées (% de l'image Chambre P3) fournies par Oscar.
+           2 cadres = 2 AC par mur ; data-poster = PDF affiché dans l'overlay.
+           Le label ne porte que le code AC : le nom de la compétence est déjà
+           révélé par la surface (mur/sol/plafond) au survol. -->
+
+      <!-- ===== MUR GAUCHE → ANALYSER ===== -->
+      <!-- Cadre « Q3 Revenue Breakdown » -->
+      <button class="hotspot" data-action="competence" data-slug="analyser" data-ac="AC31.03"
+        data-poster="preuves/1-Analyser/AC31.03  Proposer des améliorations des processus/preuve_AC31-03_kit_macros_KPMG_poster.pdf"
+        style="left:12.38%; top:9.73%; width:7.71%; height:21.42%;">
+        <span class="hotspot-label">AC31.03</span>
+      </button>
+      <!-- Cadre « Balance Sheet Summary » -->
+      <button class="hotspot" data-action="competence" data-slug="analyser" data-ac="AC31.02"
+        data-poster="preuves/1-Analyser/AC31.02  Conseiller un type d'organisation/preuve_AC31-02_conseil_franchise_poster.pdf"
+        style="left:6.15%; top:31.64%; width:11.05%; height:25.91%;">
+        <span class="hotspot-label">AC31.02</span>
+      </button>
+
+      <!-- ===== MUR DU FOND → DÉCIDER ===== -->
+      <!-- Cadre « Risk Assessment Matrix » (armoire) -->
+      <button class="hotspot" data-action="competence" data-slug="decider" data-ac="AC32.03"
+        data-poster="preuves/2-Décider/AC32.03  Participer à la prise de décision en fonction des contraintes identifiées/preuve_AC32-03_RCF_adopt_poster.pdf"
+        style="left:35.31%; top:28.35%; width:4.20%; height:9.93%;">
+        <span class="hotspot-label">AC32.03</span>
+      </button>
+      <!-- Cadre « Financial Analysis » (rideau) -->
+      <button class="hotspot" data-action="competence" data-slug="decider" data-ac="AC32.02"
+        data-poster="preuves/2-Décider/AC32.02  Exploiter les données pour accompagner la prise de décision/preuve_AC32-02_dashboard_etuexplore_poster.pdf"
+        style="left:56.84%; top:33.37%; width:5.33%; height:12.34%;">
+        <span class="hotspot-label">AC32.02</span>
+      </button>
+
+      <!-- ===== MUR DROIT → PILOTER ===== -->
+      <!-- Cadre « Stock Performance » -->
+      <button class="hotspot" data-action="competence" data-slug="piloter" data-ac="AC33.01"
+        data-poster="preuves/3-Piloter/AC33.01  Animer une équipe/preuve_AC33-01_SAE_reprise_poster.pdf"
+        style="left:69.16%; top:23.99%; width:6.15%; height:26.46%;">
+        <span class="hotspot-label">AC33.01</span>
+      </button>
+      <!-- Cadre « Cash Flow Analysis » -->
+      <button class="hotspot" data-action="competence" data-slug="piloter" data-ac="AC33.02"
+        data-poster="preuves/3-Piloter/AC33.02  Mener un projet collaboratif/preuve_AC33-02_etuexplore_poster.pdf"
+        style="left:79.85%; top:30.01%; width:15.00%; height:25.00%;">
+        <span class="hotspot-label">AC33.02</span>
+      </button>
+
+      <!-- ===== PLAFOND → ÉVALUER ===== -->
+      <!-- Cadre « Margin Evolution » -->
+      <button class="hotspot" data-action="competence" data-slug="evaluer" data-ac="AC35.04"
+        data-poster="preuves/5-Evaluer/AC35.04GC2F  Réaliser la gestion de trésorerie sur le court terme/preuve_AC35-04_tresorerie_MONAP_poster.pdf"
+        style="left:34.56%; top:5.47%; width:10.44%; height:6.51%;">
+        <span class="hotspot-label">AC35.04</span>
+      </button>
+      <!-- Cadre « KPI Dashboard » -->
+      <button class="hotspot" data-action="competence" data-slug="evaluer" data-ac="AC35.03"
+        data-poster="preuves/5-Evaluer/AC35.03GC2F  Établir un plan de financement équilibré/preuve_AC35-03_PFI_MONAP_poster.pdf"
+        style="left:47.33%; top:4.69%; width:22.38%; height:6.87%;">
+        <span class="hotspot-label">AC35.03</span>
+      </button>
+
+      <!-- ===== SOL → PRODUIRE ===== -->
+      <!-- Cadre « Debt vs Equity » -->
+      <button class="hotspot" data-action="competence" data-slug="produire" data-ac="AC34.03"
+        data-poster="preuves/4-Produire/AC34.03GC2F  Réaliser un diagnostic etou un audit pour apporter des conseils/preuve_AC34-03_VDD_SFR_poster.pdf"
+        style="left:49.16%; top:86.07%; width:19.85%; height:11.10%;">
+        <span class="hotspot-label">AC34.03</span>
+      </button>
+      <!-- Cadre « Investment Portfolio » → AC34.01 (DCF MONAP, cf. note PREUVE_1 résolue) -->
+      <button class="hotspot" data-action="competence" data-slug="produire" data-ac="AC34.01"
+        data-poster="preuves/4-Produire/AC34.01GC2F  Évaluation actifs-passifs/preuve_AC34-01_résoudre les pb d'évaluation d'actif et de passif_poster.pdf"
+        style="left:68.15%; top:86.04%; width:20.49%; height:11.13%;">
+        <span class="hotspot-label">AC34.01</span>
+      </button>
+
+      <!-- ===== BOUTONS UTILITAIRES ===== -->
+      <!-- Fenêtre du fond (vue sur la ville) → SORTIR (retour à l'extérieur / P1)
+           Coordonnées estimées visuellement sur Chambre P3 — à ajuster au besoin. -->
+      <button class="hotspot hotspot--exit" data-action="exit"
+        style="left:43%; top:29%; width:12%; height:23%;">
+        <span class="hotspot-label">Sortir</span>
+      </button>
+
+      <!-- Écran d'ordinateur (bureau) → VIDÉO de présentation -->
+      <button class="hotspot" data-action="video"
+        style="left:29.09%; top:49.48%; width:6.18%; height:7.16%;">
+        <span class="hotspot-label">Pitch vidéo</span>
+      </button>
+      <!-- Feuille posée sur le lit → CV -->
+      <button class="hotspot" data-action="cv"
+        style="left:59.93%; top:64.49%; width:10.24%; height:7.91%;">
+        <span class="hotspot-label">Mon CV</span>
+      </button>
+    </div>
+
+    <!-- Navigation mobile : remplace la scène sur petits écrans -->
+    <div id="room-cards">
+
+      <header class="room-mobile-header">
+        <p class="room-mobile-overline">Portfolio BUT GEA GC2F</p>
+        <h1 class="room-mobile-name">Oscar Rousset</h1>
+        <div class="room-mobile-actions">
+          <button id="mobile-btn-video" class="room-mobile-btn">Vidéo</button>
+          <button id="mobile-btn-cv" class="room-mobile-btn">CV</button>
+          <a href="activites.html" class="room-mobile-btn">Activités</a>
+        </div>
+      </header>
+
+      <nav aria-label="Compétences GC2F">
+        <a href="competences/analyser.html" class="room-card">
+          <span class="room-card-num">01</span>
+          <div class="room-card-text">
+            <span class="room-card-label">Analyser</span>
+            <span class="room-card-sub">Conseiller pour l'amélioration des processus</span>
+          </div>
+          <span class="room-card-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="competences/decider.html" class="room-card">
+          <span class="room-card-num">02</span>
+          <div class="room-card-text">
+            <span class="room-card-label">Décider</span>
+            <span class="room-card-sub">Concourir à la prise de décision</span>
+          </div>
+          <span class="room-card-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="competences/piloter.html" class="room-card">
+          <span class="room-card-num">03</span>
+          <div class="room-card-text">
+            <span class="room-card-label">Piloter</span>
+            <span class="room-card-sub">Améliorer les relations entre les parties prenantes</span>
+          </div>
+          <span class="room-card-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="competences/produire.html" class="room-card">
+          <span class="room-card-num">04</span>
+          <div class="room-card-text">
+            <span class="room-card-label">Produire</span>
+            <span class="room-card-sub">Optimiser l'information comptable, fiscale et sociale</span>
+          </div>
+          <span class="room-card-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="competences/evaluer.html" class="room-card">
+          <span class="room-card-num">05</span>
+          <div class="room-card-text">
+            <span class="room-card-label">Évaluer</span>
+            <span class="room-card-sub">Optimiser les outils d'analyse et de prévision</span>
+          </div>
+          <span class="room-card-arrow" aria-hidden="true">→</span>
+        </a>
+      </nav>
+
+    </div>
+
+    <!-- Modal : vidéo de présentation (placeholder) -->
+    <div id="modal-video" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Fermer">&#x2715;</button>
+        <h2 class="modal-title">Vidéo de présentation</h2>
+        <!-- TODO : remplacer ce placeholder par l'iframe YouTube/Vimeo
+             quand la vidéo sera disponible. URL à récupérer dans CONTENT.md -->
+        <div class="video-placeholder">
+          <p class="video-placeholder-title">Vidéo de présentation — à venir</p>
+          <p class="video-placeholder-meta">Oscar Rousset · BUT GEA GC2F</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal : CV -->
+    <div id="modal-cv" class="modal hidden" role="dialog" aria-modal="true">
+      <div class="modal-content modal-content--cv">
+        <button class="modal-close" aria-label="Fermer">&#x2715;</button>
+        <h2 class="modal-title">CV — Oscar Rousset</h2>
+        <div class="cv-preview">
+          <iframe src="assets/documents/CV.pdf" title="CV Oscar Rousset"></iframe>
+        </div>
+        <a href="assets/documents/CV.pdf" download="CV_Oscar_Rousset.pdf" class="btn-download">
+          Télécharger le CV
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Overlay de preuve : le poster PDF vient vers le visiteur, la chambre reste
+       visible (floutée) en arrière-plan. Le contenu est uniquement le PDF. -->
+  <div id="modal-proof" class="proof-overlay hidden" role="dialog" aria-modal="true" aria-label="Preuve">
+    <button class="proof-close" aria-label="Fermer">&#x2715;</button>
+    <div class="proof-frame">
+      <iframe class="proof-doc" title="Preuve (poster PDF)"></iframe>
+    </div>
+  </div>
+
+  <!-- Bouton audio fixe (visible après l'intro) -->
+  <button id="btn-audio" class="hidden" aria-label="Couper la musique">
+    <svg class="icon-sound-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+    </svg>
+    <svg class="icon-sound-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </svg>
+  </button>
+
+  <!-- Overlay de transition (niveau body, persiste entre les deux scènes) -->
+  <div id="transition-overlay"></div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js" defer></script>
+  <script src="js/intro.js" defer></script>
+  <script src="js/room.js" defer></script>
+  <script src="js/competence.js" defer></script>
+
+</body>
+</html>

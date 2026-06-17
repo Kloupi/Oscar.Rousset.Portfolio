@@ -1,0 +1,108 @@
+/* ============================================================
+   VARIABLES GLOBALES
+   ============================================================ */
+:root {
+  /* Couleurs */
+  --color-bg: #0A1628;
+  --color-surface: #1B2E4B;
+  --color-text: #F5F0E8;
+  --color-accent: #C9A84C;
+  --color-secondary: #2A4A7F;
+
+  /* Typographie */
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ============================================================
+   RESET CSS
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  color: inherit;
+}
+
+/* ============================================================
+   UTILITAIRES
+   ============================================================ */
+.hidden {
+  display: none;
+}
+
+/* ============================================================
+   BOUTON AUDIO (fixe bas-droite — toutes les pages)
+   ============================================================ */
+#btn-audio {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  background: rgba(27, 46, 75, 0.85);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 200;
+  transition: border-color 0.2s, background 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+/* Sélecteur ID + .hidden : l'emporte sur "#btn-audio { display:flex }" */
+#btn-audio.hidden {
+  display: none;
+}
+
+#btn-audio:hover {
+  border-color: var(--color-accent);
+  background: rgba(201, 168, 76, 0.12);
+}
+
+#btn-audio .icon-sound-off {
+  display: none;
+}
+
+#btn-audio.muted .icon-sound-on {
+  display: none;
+}
+
+#btn-audio.muted .icon-sound-off {
+  display: flex;
+}

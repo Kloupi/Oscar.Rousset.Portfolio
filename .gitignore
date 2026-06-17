@@ -1,0 +1,10 @@
+# Config éditeur / local (non nécessaire au site)
+.claude/
+
+# Windows / macOS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Fichiers temporaires Office
+~$*

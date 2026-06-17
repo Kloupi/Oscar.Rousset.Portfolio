@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analyser — Oscar Rousset</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/competence.css" />
+</head>
+<body class="page-competence" data-audio-path="../assets/audio/Music website.mp3">
+
+  <main class="competence-page">
+
+    <header class="comp-header">
+      <a href="../index.html" class="btn-retour">&#8592; Retour au bureau</a>
+      <p class="comp-sous-titre">Compétence 1 · Analyser les processus de l'organisation dans son environnement</p>
+      <h1 class="comp-titre">Analyser</h1>
+      <p class="comp-niveau">Niveau 3 — Conseiller pour l'amélioration des processus de l'organisation</p>
+    </header>
+
+    <section class="comp-section comp-definition">
+      <h2 class="section-title">Définition</h2>
+      <p class="definition-text">
+        Analyser, c'est comprendre une organisation dans sa globalité — ses enjeux, ses processus, ses parties prenantes — pour être capable de proposer des améliorations concrètes. Au fil de ma formation et de mon alternance chez KPMG, j'ai appris à ne pas me contenter d'observer : j'analyse pour recommander.
+      </p>
+    </section>
+
+    <section class="comp-section">
+      <h2 class="section-title">Mes preuves</h2>
+      <div class="preuves-grid">
+
+        <article class="preuve-card">
+          <h3 class="preuve-titre">Automatisation des tests d'audit — Mission KPMG Asset Management</h3>
+          <p class="preuve-meta">
+            <span class="meta-type">Présentation de projet (code VBA, démarche d'analyse, livrables)</span>
+            &nbsp;·&nbsp; Alternance BUT3 — KPMG, pôle Asset Management
+          </p>
+          <p class="preuve-interpretation">
+            Avant de coder quoi que ce soit, j'ai mené une enquête auprès de 12 alternants pour identifier les 4 tests d'audit les plus chronophages sur les workpapers Excel. Cette analyse préalable du besoin — identifier les enjeux, qualifier les processus existants, évaluer leur performance — est au cœur de la compétence Analyser niveau 3. La solution (kit de 4 macros VBA via PERSONAL.XLSB) est directement issue de ce diagnostic : je n'ai pas proposé une amélioration générique, mais une réponse précise à un problème identifié par les acteurs du processus eux-mêmes.
+          </p>
+          <div class="ac-tags">
+            <span class="ac-tag">AC31.03 — Proposer des améliorations des processus</span>
+            <span class="ac-tag">AC31.01 — Intégrer l'impact des enjeux sur l'organisation</span>
+          </div>
+          <div class="preuve-doc">
+            <object data="../preuves/preuve_KPMG_VBA.pdf#toolbar=0&amp;navpanes=0&amp;view=FitH" type="application/pdf">
+              <div class="preuve-doc-fallback">
+                <span>Aperçu indisponible ici — <a href="../preuves/preuve_KPMG_VBA.pdf" target="_blank" rel="noopener">ouvrir le document (PDF)</a></span>
+              </div>
+            </object>
+          </div>
+          <a href="../preuves/preuve_KPMG_VBA.pdf" target="_blank" rel="noopener" class="preuve-doc-link">Ouvrir en plein écran ↗</a>
+        </article>
+
+      </div>
+    </section>
+
+    <footer class="comp-footer">
+      <a href="../index.html" class="btn-retour">&#8592; Retour au bureau</a>
+    </footer>
+
+  </main>
+
+
+  <button id="btn-audio" aria-label="Couper la musique">
+    <svg class="icon-sound-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+    </svg>
+    <svg class="icon-sound-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </svg>
+  </button>
+
+  <script src="../js/audio.js" defer></script>
+
+</body>
+</html>
