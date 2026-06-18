@@ -254,17 +254,17 @@
 
     </div>
 
-    <!-- Modal : vidéo de présentation (placeholder) -->
+    <!-- Modal : vidéo de présentation -->
     <div id="modal-video" class="modal hidden" role="dialog" aria-modal="true">
       <div class="modal-content">
         <button class="modal-close" aria-label="Fermer">&#x2715;</button>
         <h2 class="modal-title">Vidéo de présentation</h2>
-        <!-- TODO : remplacer ce placeholder par l'iframe YouTube/Vimeo
-             quand la vidéo sera disponible. URL à récupérer dans CONTENT.md -->
-        <div class="video-placeholder">
-          <p class="video-placeholder-title">Vidéo de présentation — à venir</p>
-          <p class="video-placeholder-meta">Oscar Rousset · BUT GEA GC2F</p>
-        </div>
+        <video id="presentation-video" class="presentation-video" controls preload="none"
+          playsinline poster="assets/image/Chambre%20P3.png">
+          <source src="assets/video/Presentation_Oscar_Rousset.mp4" type="video/mp4" />
+          Votre navigateur ne peut pas lire cette vidéo.
+          <a href="assets/video/Presentation_Oscar_Rousset.mp4">Télécharger la vidéo</a>.
+        </video>
       </div>
     </div>
 
@@ -282,6 +282,16 @@
     <!-- Liens de téléchargement, construits dynamiquement selon data-downloads du cadre -->
     <div class="proof-downloads hidden"></div>
   </div>
+
+  <!-- Mention de copyright (pastille fixe cliquable → mentions légales,
+       révélée avec la chambre comme le bouton audio) -->
+  <a id="site-credit" class="site-credit hidden" href="mentions-legales.html" title="Mentions légales">
+    <svg class="site-credit-mark" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="1.3" />
+      <path d="M15 9.4a3.5 3.5 0 1 0 0 5.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
+    <span class="site-credit-text">2026 Oscar Rousset · Tous droits réservés</span>
+  </a>
 
   <!-- Bouton audio fixe (visible après l'intro) -->
   <button id="btn-audio" class="hidden" aria-label="Couper la musique">

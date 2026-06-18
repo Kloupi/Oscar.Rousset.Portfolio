@@ -106,3 +106,79 @@ button {
 #btn-audio.muted .icon-sound-off {
   display: flex;
 }
+
+/* ============================================================
+   MENTION DE COPYRIGHT
+   - Sur l'accueil immersif : pastille fixe en bas à gauche,
+     révélée en même temps que le bouton audio (#site-credit).
+   - Sur les pages internes : intégrée au footer (.comp-footer).
+   ============================================================ */
+.site-credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: rgba(245, 240, 232, 0.55);
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Le pictogramme « © » dessiné (anneau or + arc en C) */
+.site-credit-mark {
+  flex-shrink: 0;
+  color: var(--color-accent);
+  opacity: 0.9;
+}
+
+/* Variante fixe sur l'accueil */
+#site-credit.site-credit {
+  position: fixed;
+  bottom: 26px;
+  left: 24px;
+  z-index: 200;
+  padding: 6px 13px 6px 10px;
+  border: 1px solid rgba(201, 168, 76, 0.22);
+  border-radius: 999px;
+  background: rgba(27, 46, 75, 0.72);
+  backdrop-filter: blur(4px);
+  transition: color 0.25s, border-color 0.25s;
+}
+
+#site-credit.site-credit:hover {
+  color: rgba(245, 240, 232, 0.85);
+  border-color: rgba(201, 168, 76, 0.4);
+}
+
+/* Sélecteur ID + .hidden : l'emporte sur "#site-credit.site-credit" */
+#site-credit.hidden {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  #site-credit.site-credit {
+    bottom: 14px;
+    left: 14px;
+    font-size: 0.66rem;
+  }
+}
+
+/* Variante intégrée au footer des pages internes */
+.comp-footer .site-credit {
+  display: flex;
+  margin-top: 18px;
+}
+
+a.site-credit {
+  transition: color 0.25s;
+}
+
+a.site-credit:hover {
+  color: rgba(245, 240, 232, 0.85);
+}
+
+a.site-credit:hover .site-credit-mark {
+  opacity: 1;
+}

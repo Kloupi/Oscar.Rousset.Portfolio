@@ -330,35 +330,14 @@
   letter-spacing: 0.05em;
 }
 
-/* Modal vidéo : zone placeholder */
-.video-placeholder {
+/* Modal vidéo : lecteur de présentation */
+.presentation-video {
+  display: block;
+  width: 100%;
+  max-height: 70vh;
   background: var(--color-bg);
   border: 1px solid rgba(42, 74, 127, 0.35);
   border-radius: 3px;
-  min-height: 280px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-}
-
-.video-placeholder-title {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  color: var(--color-text);
-  opacity: 0.75;
-  letter-spacing: 0.04em;
-  text-align: center;
-}
-
-.video-placeholder-meta {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--color-accent);
-  opacity: 0.45;
-  letter-spacing: 0.14em;
-  text-align: center;
 }
 
 /* Modal CV */

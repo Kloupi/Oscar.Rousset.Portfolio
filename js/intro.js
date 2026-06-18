@@ -102,5 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     intro.classList.add('hidden');
     room.classList.remove('hidden');
     document.getElementById('btn-audio').classList.remove('hidden');
+    const credit = document.getElementById('site-credit');
+    if (credit) credit.classList.remove('hidden');
   }
 });

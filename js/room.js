@@ -91,21 +91,32 @@ function openModal(id) {
   modal.classList.remove('hidden');
   gsap.fromTo(modal,   { opacity: 0 },               { opacity: 1, duration: 0.25, ease: 'power2.out' });
   gsap.fromTo(content, { scale: 0.92, opacity: 0 },  { scale: 1,   opacity: 1, duration: 0.30, ease: 'power2.out' });
+  // Lance la lecture de la vidéo dès l'ouverture (clic = geste utilisateur, son autorisé)
+  if (id === 'modal-video') {
+    const video = document.getElementById('presentation-video');
+    if (video) video.play().catch(() => {}); // silencieux si le navigateur bloque l'autoplay
+  }
 }
 
 // Ferme un modal avec animation GSAP (scale vers 0.92 + fade out)
 function closeModal(modal) {
   const content = modal.querySelector('.modal-content');
-  // Reprend la musique si c'était le modal vidéo
-  if (modal.id === 'modal-video') window.portfolioAudio?.resume();
+  // Reprend la musique et stoppe la vidéo si c'était le modal vidéo
+  if (modal.id === 'modal-video') {
+    window.portfolioAudio?.resume();
+    const video = document.getElementById('presentation-video');
+    if (video) { video.pause(); video.currentTime = 0; }
+  }
   gsap.to(content, { scale: 0.92, opacity: 0, duration: 0.20, ease: 'power2.in' });
   gsap.to(modal,   { opacity: 0,  duration: 0.25, ease: 'power2.in',
     onComplete: () => { modal.classList.add('hidden'); gsap.set(modal, { opacity: '' }); gsap.set(content, { scale: '', opacity: '' }); }
   });
 }
 
-// Révèle le bouton audio une fois la scène affichée (appelé par intro.js)
+// Révèle le bouton audio et la mention de copyright une fois la scène affichée (appelé par intro.js)
 function revealRoom() {
   const btn = document.getElementById('btn-audio');
   if (btn) btn.classList.remove('hidden');
+  const credit = document.getElementById('site-credit');
+  if (credit) credit.classList.remove('hidden');
 }
