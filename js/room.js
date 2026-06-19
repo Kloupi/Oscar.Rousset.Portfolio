@@ -74,6 +74,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Menu des preuves (mobile) : chaque bouton ouvre le même poster que le cadre
+  // correspondant. On recopie les données du hotspot (source unique de vérité),
+  // puis openProof fait « grandir » la preuve depuis le bouton tapé.
+  document.querySelectorAll('.mobile-proof-btn').forEach(btn => {
+    const hot = document.querySelector('.hotspot[data-ac="' + btn.dataset.openAc + '"]');
+    if (!hot) return;
+    if (hot.dataset.poster)    btn.dataset.poster    = hot.dataset.poster;
+    if (hot.dataset.downloads) btn.dataset.downloads = hot.dataset.downloads;
+    if (hot.dataset.links)     btn.dataset.links     = hot.dataset.links;
+    btn.addEventListener('click', () => {
+      if (typeof openProof === 'function') openProof(btn);
+    });
+  });
+
 });
 
 // Transition vers la page activités via l'overlay

@@ -201,55 +201,48 @@
         <p class="room-mobile-overline">Portfolio BUT GEA GC2F</p>
         <h1 class="room-mobile-name">Oscar Rousset</h1>
         <div class="room-mobile-actions">
-          <button id="mobile-btn-video" class="room-mobile-btn">Vidéo</button>
           <button id="mobile-btn-cv" class="room-mobile-btn"
             data-poster="assets/documents/CV_Oscar_Rousset_FR.pdf"
-            data-downloads="Télécharger le CV || assets/documents/CV_Oscar_Rousset_FR.pdf || CV_Oscar_Rousset_FR.pdf">CV</button>
-          <a href="activites.html" class="room-mobile-btn">Activités</a>
+            data-downloads="Télécharger le CV || assets/documents/CV_Oscar_Rousset_FR.pdf || CV_Oscar_Rousset_FR.pdf">Mon CV</button>
+          <button id="mobile-btn-video" class="room-mobile-btn">Vidéo</button>
         </div>
       </header>
 
-      <nav aria-label="Compétences GC2F">
-        <a href="competences/analyser.html" class="room-card">
-          <span class="room-card-num">01</span>
-          <div class="room-card-text">
-            <span class="room-card-label">Analyser</span>
-            <span class="room-card-sub">Conseiller pour l'amélioration des processus</span>
-          </div>
-          <span class="room-card-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="competences/decider.html" class="room-card">
-          <span class="room-card-num">02</span>
-          <div class="room-card-text">
-            <span class="room-card-label">Décider</span>
-            <span class="room-card-sub">Concourir à la prise de décision</span>
-          </div>
-          <span class="room-card-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="competences/piloter.html" class="room-card">
-          <span class="room-card-num">03</span>
-          <div class="room-card-text">
-            <span class="room-card-label">Piloter</span>
-            <span class="room-card-sub">Améliorer les relations entre les parties prenantes</span>
-          </div>
-          <span class="room-card-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="competences/produire.html" class="room-card">
-          <span class="room-card-num">04</span>
-          <div class="room-card-text">
-            <span class="room-card-label">Produire</span>
-            <span class="room-card-sub">Optimiser l'information comptable, fiscale et sociale</span>
-          </div>
-          <span class="room-card-arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="competences/evaluer.html" class="room-card">
-          <span class="room-card-num">05</span>
-          <div class="room-card-text">
-            <span class="room-card-label">Évaluer</span>
-            <span class="room-card-sub">Optimiser les outils d'analyse et de prévision</span>
-          </div>
-          <span class="room-card-arrow" aria-hidden="true">→</span>
-        </a>
+      <!-- Menu des preuves : chaque bouton ouvre le même poster que le cadre
+           correspondant dans la chambre (données recopiées depuis le hotspot
+           via data-open-ac dans room.js → openProof). -->
+      <nav class="mobile-proofs" aria-label="Preuves par compétence">
+        <p class="mobile-proofs-title">Les preuves</p>
+
+        <div class="mobile-proof-group">
+          <span class="mobile-proof-comp">Analyser</span>
+          <button class="mobile-proof-btn" data-open-ac="AC31.02"><span class="mobile-proof-ac">AC31.02</span> Conseiller un type d'organisation</button>
+          <button class="mobile-proof-btn" data-open-ac="AC31.03"><span class="mobile-proof-ac">AC31.03</span> Proposer des améliorations des processus</button>
+        </div>
+
+        <div class="mobile-proof-group">
+          <span class="mobile-proof-comp">Décider</span>
+          <button class="mobile-proof-btn" data-open-ac="AC32.02"><span class="mobile-proof-ac">AC32.02</span> Exploiter les données pour la décision</button>
+          <button class="mobile-proof-btn" data-open-ac="AC32.03"><span class="mobile-proof-ac">AC32.03</span> Participer à la prise de décision</button>
+        </div>
+
+        <div class="mobile-proof-group">
+          <span class="mobile-proof-comp">Piloter</span>
+          <button class="mobile-proof-btn" data-open-ac="AC33.01"><span class="mobile-proof-ac">AC33.01</span> Animer une équipe</button>
+          <button class="mobile-proof-btn" data-open-ac="AC33.02"><span class="mobile-proof-ac">AC33.02</span> Mener un projet collaboratif</button>
+        </div>
+
+        <div class="mobile-proof-group">
+          <span class="mobile-proof-comp">Produire</span>
+          <button class="mobile-proof-btn" data-open-ac="AC34.01"><span class="mobile-proof-ac">AC34.01</span> Évaluation des actifs et passifs</button>
+          <button class="mobile-proof-btn" data-open-ac="AC34.03"><span class="mobile-proof-ac">AC34.03</span> Diagnostic / audit pour conseiller</button>
+        </div>
+
+        <div class="mobile-proof-group">
+          <span class="mobile-proof-comp">Évaluer</span>
+          <button class="mobile-proof-btn" data-open-ac="AC35.03"><span class="mobile-proof-ac">AC35.03</span> Plan de financement équilibré</button>
+          <button class="mobile-proof-btn" data-open-ac="AC35.04"><span class="mobile-proof-ac">AC35.04</span> Gestion de trésorerie court terme</button>
+        </div>
       </nav>
 
     </div>
