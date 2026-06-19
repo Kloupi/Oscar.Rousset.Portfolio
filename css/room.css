@@ -386,22 +386,26 @@
    ============================================================ */
 @media (max-width: 767px) {
 
-  /* La scène image + hotspots disparaît au profit des cartes */
+  /* Option B : la scène (image + hotspots) reste affichée en haut, façon PC,
+     puis les cartes de navigation défilent en dessous. */
   #room {
     overflow-y: auto;
     display: block;
   }
 
+  /* Scène 16:9 pleine largeur en haut de page : image entière, non rognée,
+     zones cliquables alignées (calées en % de la scène). */
   #room-scene {
-    display: none;
+    width: 100vw;
+    height: 56.25vw;   /* 16:9 */
+    margin: 0 auto;
   }
 
-  /* Conteneur de navigation mobile */
+  /* Conteneur de navigation mobile, sous la scène */
   #room-cards {
     display: flex;
     flex-direction: column;
-    padding: 36px 20px 100px;
-    min-height: 100vh;
+    padding: 28px 20px 100px;
   }
 
   .room-mobile-header {
