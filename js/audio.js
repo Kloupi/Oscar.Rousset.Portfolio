@@ -1,6 +1,6 @@
 // Musique de fond : déclenche au premier clic utilisateur, état mute mémorisé en localStorage
 document.addEventListener('DOMContentLoaded', () => {
-  const audioPath = document.body.dataset.audioPath || 'assets/audio/Music website.mp3';
+  const audioPath = document.body.dataset.audioPath || 'assets/audio/We can go up up up.mp3';
   const audio     = new Audio(audioPath);
   const btn       = document.getElementById('btn-audio');
 
