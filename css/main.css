@@ -108,6 +108,93 @@ button {
 }
 
 /* ============================================================
+   LECTEUR AUDIO (titre + barre de volume, regroupés avec le
+   bouton mute en bas à droite — toutes les pages)
+   ============================================================ */
+#audio-player {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px 8px 8px;
+  border-radius: 28px;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  background: rgba(27, 46, 75, 0.85);
+  backdrop-filter: blur(4px);
+}
+
+/* Masqué tant que le bouton mute l'est (intro) — révélé en même
+   temps que la chambre, quand intro.js/room.js retire .hidden */
+#audio-player:has(.hidden) {
+  display: none;
+}
+
+/* Le bouton mute reprend sa place dans le lecteur (plus de position fixe) */
+#audio-player #btn-audio {
+  position: static;
+  bottom: auto;
+  right: auto;
+  flex: none;
+  z-index: auto;
+  backdrop-filter: none;
+}
+
+#audio-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+#audio-title {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--color-text);
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Barre de volume */
+#audio-volume {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 130px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(245, 240, 232, 0.25);
+  cursor: pointer;
+}
+#audio-volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: none;
+  cursor: pointer;
+}
+#audio-volume::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-accent);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  #audio-title  { max-width: 110px; }
+  #audio-volume { width: 100px; }
+}
+
+/* ============================================================
    MENTION DE COPYRIGHT
    - Sur l'accueil immersif : pastille fixe en bas à gauche,
      révélée en même temps que le bouton audio (#site-credit).
